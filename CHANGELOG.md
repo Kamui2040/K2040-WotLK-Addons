@@ -17,3 +17,9 @@ Initial public preview of K2040 Loot & Salvage.
 - Optional AdiBags Junk classification.
 
 This version is a pre-release while the wider in-game compatibility matrix is still being completed.
+
+### Optional separate download
+
+- Added the K2040 Loot & Salvage - AddOnSkins bridge as its own addon and release download.
+- The bridge requires separately installed copies of ElvUI, ElvUI AddOnSkins, and K2040 Loot & Salvage.
+- It does not overwrite or bundle third-party addon files.
