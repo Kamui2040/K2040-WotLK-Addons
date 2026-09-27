@@ -16,7 +16,7 @@ Main features:
 - optional AdiBags Junk classification;
 - a minimap button that common button collectors can detect.
 
-The first `v0.1.0` download is published as a preview while the wider addon-combination and gameplay test matrix is still being completed.
+The `v0.1.0` downloads are published as a preview while the wider addon-combination and gameplay test matrix is still being completed.
 
 ## Download and install
 
@@ -26,6 +26,16 @@ The first `v0.1.0` download is published as a preview while the wider addon-comb
 4. Start or restart the game.
 
 The folder keeps its original technical name so existing settings and item lists continue to load.
+
+### Optional AddOnSkins bridge
+
+If you use ElvUI and ElvUI AddOnSkins, the release also provides `K2040-Loot-and-Salvage-AddOnSkins-v0.1.0.zip` as a separate download.
+
+1. Install K2040 Loot & Salvage, ElvUI, and ElvUI AddOnSkins first.
+2. Extract the included `K2040_LootAndSalvage_AddOnSkins` folder beside those addons.
+3. Enable **K2040 Loot & Salvage - AddOnSkins** on the character-selection AddOns screen.
+
+The bridge changes presentation only. It does not replace AddOnSkins files, and the main addon remains fully standalone.
 
 ## Compatibility
 
@@ -43,6 +53,7 @@ Run the local checks from the repository root:
 ```bash
 bash tools/run-luacheck.sh
 luajit tools/test-k2040-crap-filter.lua "$PWD"
+luajit tools/test-addonskins-adapter.lua "$PWD"
 xmllint --noout addons/K2040_CrapFilter/Bindings.xml
 git diff --check
 ```
