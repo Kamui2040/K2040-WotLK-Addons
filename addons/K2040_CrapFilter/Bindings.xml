@@ -1,0 +1,8 @@
+<Bindings>
+  <Binding name="KCF_MARK_MOUSEOVER_CRAP" header="K2040_CRAP_FILTER">
+    K2040CrapFilter_MarkMouseoverCrap()
+  </Binding>
+  <Binding name="KCF_MARK_MOUSEOVER_KEEP">
+    K2040CrapFilter_MarkMouseoverKeep()
+  </Binding>
+</Bindings>

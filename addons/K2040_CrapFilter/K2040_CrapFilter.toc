@@ -1,0 +1,16 @@
+## Interface: 30300
+## Title: K2040 Loot & Salvage
+## Notes: Sort loot, clean bags, and process profession items safely.
+## Author: K2040
+## Version: 0.1.0
+## SavedVariables: K2040CrapFilterDB
+
+Core.lua
+Classification.lua
+Professions.lua
+Loot.lua
+Merchant.lua
+QuickClassify.lua
+QuickLists.lua
+Options.lua
+Bindings.xml
