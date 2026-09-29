@@ -14,28 +14,25 @@ Main features:
 - quick bag-item classification and a compact two-pane list window;
 - user-clicked Disenchant, Milling, and Prospecting processing;
 - optional AdiBags Junk classification;
+- built-in Automatic, Vanilla, Modern Dark, Blue, and ElvUI presentation choices;
 - a minimap button that common button collectors can detect.
 
-The `v0.1.0` downloads are published as a preview while the wider addon-combination and gameplay test matrix is still being completed.
+The `v0.2.0` download is published as a pre-release while the wider addon-combination and gameplay test matrix is still being completed.
 
 ## Download and install
 
 1. Open the [Releases](https://github.com/Kamui2040/K2040-WotLK-Addons/releases) page.
-2. Download `K2040-Loot-and-Salvage-v0.1.0.zip`.
+2. Download `K2040-Loot-and-Salvage-v0.2.0.zip`.
 3. Extract the included `K2040_CrapFilter` folder into `World of Warcraft/Interface/AddOns`.
 4. Start or restart the game.
 
 The folder keeps its original technical name so existing settings and item lists continue to load.
 
-### Optional AddOnSkins bridge
+### Presentation choices
 
-If you use ElvUI and ElvUI AddOnSkins, the release also provides `K2040-Loot-and-Salvage-AddOnSkins-v0.1.0.zip` as a separate download.
+All five presentation choices are included in the main addon. **Automatic** uses the ElvUI presentation only when both ElvUI and AddOnSkins are loaded; otherwise it uses **Vanilla**. **Blue** keeps the Vanilla layout and changes its red action buttons to GMGenie-style blue controls. Changes offer a reload prompt and take effect after reload or restart.
 
-1. Install K2040 Loot & Salvage, ElvUI, and ElvUI AddOnSkins first.
-2. Extract the included `K2040_LootAndSalvage_AddOnSkins` folder beside those addons.
-3. Enable **K2040 Loot & Salvage - AddOnSkins** on the character-selection AddOns screen.
-
-The bridge changes presentation only. It does not replace AddOnSkins files, and the main addon remains fully standalone.
+ElvUI and AddOnSkins are needed only when the ElvUI presentation is selected. The separate bridge shipped with the historical `v0.1.0` preview is retired and should not be installed with `v0.2.0`.
 
 ## Compatibility
 
@@ -53,7 +50,6 @@ Run the local checks from the repository root:
 ```bash
 bash tools/run-luacheck.sh
 luajit tools/test-k2040-crap-filter.lua "$PWD"
-luajit tools/test-addonskins-adapter.lua "$PWD"
 xmllint --noout addons/K2040_CrapFilter/Bindings.xml
 git diff --check
 ```

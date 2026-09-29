@@ -8,7 +8,7 @@ Sort loot, clean bags, and process profession items in World of Warcraft WotLK 3
 - Interface: `30300`
 - Runtime: Lua 5.1
 - Required dependencies: none
-- Optional integration: AdiBags
+- Optional integrations: AdiBags; ElvUI plus ElvUI AddOnSkins for the ElvUI skin
 
 ## Main behavior
 
@@ -19,7 +19,10 @@ Sort loot, clean bags, and process profession items in World of Warcraft WotLK 3
 - Optional automatic merchant selling for every sellable item currently classified as crap.
 - Skinnable, mineable, gatherable, and engineerable corpse overrides.
 - Safety-bounded auto-destroy that removes no more than the proven net increase from the current loot session.
-- Modifier + right-click and mouse-over keybind classification for supported Blizzard, ElvUI, and AdiBags item buttons.
+- Modifier + right-click and mouse-over keybind classification for Blizzard, pinned ElvUI, and pinned AdiBags item buttons.
+- Built-in Automatic, Vanilla, Modern Dark, Blue, and ElvUI presentation choices. Blue keeps the Vanilla presentation and changes only native red action buttons to GMGenie-style blue controls. Automatic selects ElvUI only when both ElvUI and AddOnSkins are loaded and otherwise uses Vanilla; changes apply after reload or restart.
+
+Modern Dark and ElvUI style every addon-owned settings page, process control, quick-list panel, row, scroll area, dropdown, checkbox, button, and editable field. Selected dropdown values and arrows remain visible, overlapping addon windows keep their controls in the foreground window, and the game's existing semantic text colors are preserved. Changing the skin offers an immediate reload. Editable fields retain visible native carets. The standard circular minimap launcher remains native. An explicit unavailable ElvUI choice falls back safely to Vanilla while keeping the saved choice.
 - Separate Disenchant, Milling, and Prospecting queues with profession-specific Always/Never lists.
 - User-triggered profession casts through one secure action. The next eligible Disenchant, Milling, or Prospecting target is prepared automatically, and the action advances after each completed result.
 - Optional profession-result auto-loot, disabled by default and limited to the immediate item-only window following a cast started from the prepared action; later or mixed windows remain manual.
@@ -67,12 +70,10 @@ Static validation does not prove in-game behavior. Installation, `/reload`, relo
 
 ## Provenance
 
-This is an original K2040 implementation. KarniCrap source was not copied or reused. The historical AddOnSkins KarniCrap adapter was consulted only to identify legacy settings and controls. Enchantrix was inspected only as a behavioral reference for one-click profession processing; no Enchantrix code or data is embedded. AdiBags integration uses its exposed `IsJunk(itemID)` method and filter-change message; no AdiBags source is embedded. The minimap icon is a project-owned, text-generated original; its source and conversion record are kept under `assets/K2040_CrapFilter` in this repository.
+This is an original K2040 implementation. KarniCrap source was not copied or reused. The historical AddOnSkins KarniCrap adapter was consulted only to identify legacy settings/control surfaces. Enchantrix was inspected only as a behavioral reference for one-click protected profession processing; no Enchantrix code or data is embedded. AdiBags integration uses its exposed `IsJunk(itemID)` method and filter-change message; no AdiBags source is embedded. The minimap icon is a project-owned, text-generated original; its source and conversion record are kept under `assets/K2040_CrapFilter` in this repository.
 
 ## Licence
 
 K2040 Loot & Salvage is available under the MIT License. See `LICENSE`.
 
 The technical addon folder remains `K2040_CrapFilter` so existing settings and lists continue to load.
-
-The public package contains only the standalone addon and does not require ElvUI or AddOnSkins.

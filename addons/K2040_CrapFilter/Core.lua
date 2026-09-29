@@ -20,7 +20,7 @@ _G.K2040CrapFilter = KCF
 
 KCF.name = addonName
 KCF.displayName = "K2040 Loot & Salvage"
-KCF.version = "0.1.0"
+KCF.version = "0.2.0"
 KCF.modules = {}
 KCF.moduleOrder = {}
 KCF.eventHandlers = {}
@@ -160,6 +160,7 @@ KCF.defaults = {
 		},
 	},
 	ui = {
+		skinMode = "auto",
 		processBarShown = false,
 		quickLists = {
 			point = "CENTER",
@@ -175,6 +176,39 @@ KCF.defaults = {
 		angle = 220,
 	},
 }
+
+KCF.SKIN_MODES = {
+	{ value = "auto", label = "Automatic" },
+	{ value = "vanilla", label = "Vanilla" },
+	{ value = "modern", label = "Modern Dark" },
+	{ value = "blue", label = "Blue" },
+	{ value = "elvui", label = "ElvUI" },
+}
+
+local validSkinModes = {
+	auto = true,
+	vanilla = true,
+	modern = true,
+	blue = true,
+	elvui = true,
+}
+
+function KCF.IsElvUISkinAvailable(_self)
+	return type(_G.IsAddOnLoaded) == "function"
+		and _G.IsAddOnLoaded("ElvUI")
+		and _G.IsAddOnLoaded("ElvUI_AddOnSkins")
+end
+
+function KCF:ResolveSkinMode(mode)
+	if not validSkinModes[mode] then mode = "auto" end
+	if mode == "auto" then
+		return self:IsElvUISkinAvailable() and "elvui" or "vanilla"
+	end
+	if mode == "elvui" and not self:IsElvUISkinAvailable() then
+		return "vanilla"
+	end
+	return mode
+end
 
 local function copyDefaults(target, defaults)
 	if type(target) ~= "table" then
@@ -202,6 +236,9 @@ function KCF:InitializeDatabase()
 
 	self.db = copyDefaults(database, self.defaults)
 	self.db.schemaVersion = 1
+	if not validSkinModes[self.db.ui.skinMode] then
+		self.db.ui.skinMode = "auto"
+	end
 	_G.K2040CrapFilterDB = self.db
 end
 
