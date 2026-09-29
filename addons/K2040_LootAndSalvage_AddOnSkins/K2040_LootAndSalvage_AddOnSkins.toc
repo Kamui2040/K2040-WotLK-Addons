@@ -1,8 +1,0 @@
-## Interface: 30300
-## Title: K2040 Loot & Salvage - AddOnSkins
-## Notes: Optional AddOnSkins bridge for K2040 Loot & Salvage.
-## Author: K2040
-## Version: 0.1.0
-## RequiredDeps: ElvUI, ElvUI_AddOnSkins, K2040_CrapFilter
-
-Adapter.lua

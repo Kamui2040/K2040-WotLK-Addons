@@ -4,7 +4,7 @@
 
 - Target World of Warcraft WotLK 3.3.5a build 12340, Interface `30300`, and Lua 5.1.
 - Keep each addon usable without ElvUI or another UI replacement unless its own documentation explicitly says otherwise.
-- Keep `K2040_LootAndSalvage_AddOnSkins` optional and separately installable. It may depend on ElvUI and AddOnSkins, but it must not overwrite or bundle their files.
+- Keep `K2040_CrapFilter` standalone. Its built-in ElvUI presentation may use separately installed ElvUI and AddOnSkins, but the addon must not require, overwrite, or bundle either dependency.
 - Preserve the `K2040_CrapFilter` folder, addon ID, and `K2040CrapFilterDB` SavedVariables name unless a tested migration is included.
 
 ## Safety and compatibility
@@ -29,7 +29,6 @@ Before submitting a change:
 ```bash
 bash tools/run-luacheck.sh
 luajit tools/test-k2040-crap-filter.lua "$PWD"
-luajit tools/test-addonskins-adapter.lua "$PWD"
 xmllint --noout addons/K2040_CrapFilter/Bindings.xml
 git diff --check
 ```

@@ -2,8 +2,9 @@
 ## Title: K2040 Loot & Salvage
 ## Notes: Sort loot, clean bags, and process profession items safely.
 ## Author: K2040
-## Version: 0.1.0
+## Version: 0.2.0
 ## SavedVariables: K2040CrapFilterDB
+## OptionalDeps: ElvUI, ElvUI_AddOnSkins
 
 Core.lua
 Classification.lua
@@ -13,4 +14,5 @@ Merchant.lua
 QuickClassify.lua
 QuickLists.lua
 Options.lua
+Skin.lua
 Bindings.xml

@@ -13,7 +13,6 @@ local InterfaceOptionsFrame_OpenToCategory = _G.InterfaceOptionsFrame_OpenToCate
 local UIDropDownMenu_CreateInfo = _G.UIDropDownMenu_CreateInfo
 local UIDropDownMenu_Initialize = _G.UIDropDownMenu_Initialize
 local UIDropDownMenu_SetSelectedValue = _G.UIDropDownMenu_SetSelectedValue
-local UIDropDownMenu_SetText = _G.UIDropDownMenu_SetText
 local UIDropDownMenu_SetWidth = _G.UIDropDownMenu_SetWidth
 local StaticPopup_Show = _G.StaticPopup_Show
 local tonumber = tonumber
@@ -52,7 +51,10 @@ local MODIFIER_VALUES = {
 	{ value = "CTRL-SHIFT-ALT", label = "Ctrl + Shift + Alt" },
 }
 
+local SKIN_MODE_VALUES = KCF.SKIN_MODES
+
 local RESET_LIST_DIALOG = "K2040_CRAP_FILTER_RESET_LIST"
+local RELOAD_SKIN_DIALOG = "K2040_CRAP_FILTER_RELOAD_SKIN"
 _G.StaticPopupDialogs[RESET_LIST_DIALOG] = {
 	text = "Reset the %s list? Every item in this list will be removed.",
 	button1 = _G.YES,
@@ -60,6 +62,16 @@ _G.StaticPopupDialogs[RESET_LIST_DIALOG] = {
 	OnAccept = function(_, data)
 		if data and data.reset then data.reset() end
 	end,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = 1,
+	preferredIndex = 3,
+}
+_G.StaticPopupDialogs[RELOAD_SKIN_DIALOG] = {
+	text = "Reload the interface now to apply the selected skin?",
+	button1 = "Reload now",
+	button2 = "Later",
+	OnAccept = function() _G.ReloadUI() end,
 	timeout = 0,
 	whileDead = 1,
 	hideOnEscape = 1,
@@ -176,8 +188,9 @@ end
 
 local function createWideButton(panel, internalName, label, callback, y)
 	local parent = panel.content or panel
-	local button = createButton(panel, internalName, label, callback, 16, y, 200)
-	button:SetPoint("RIGHT", parent, "RIGHT", -16, 0)
+	local button = createButton(panel, internalName, label, callback, 0, y, 240)
+	button:ClearAllPoints()
+	button:SetPoint("TOP", parent, "TOP", 0, y)
 	return button
 end
 
@@ -196,14 +209,16 @@ local function createDropDown(panel, internalName, label, values, getter, setter
 	UIDropDownMenu_SetWidth(dropDown, width - 40)
 	UIDropDownMenu_Initialize(dropDown, function()
 		for _, entry in ipairs(values) do
+			local value = entry.value
+			local valueLabel = entry.label
 			local info = UIDropDownMenu_CreateInfo()
-			info.text = entry.label
-			info.value = entry.value
-			info.checked = getter() == entry.value
+			info.text = valueLabel
+			info.value = value
+			info.checked = getter() == value
 			info.func = function()
-				setter(entry.value)
-				UIDropDownMenu_SetSelectedValue(dropDown, entry.value)
-				UIDropDownMenu_SetText(dropDown, entry.label)
+				setter(value)
+				UIDropDownMenu_SetSelectedValue(dropDown, value)
+				_G.UIDropDownMenu_SetText(dropDown, valueLabel)
 				KCF:NotifyRulesChanged()
 			end
 			_G.UIDropDownMenu_AddButton(info)
@@ -212,7 +227,7 @@ local function createDropDown(panel, internalName, label, values, getter, setter
 	addRefresh(panel, function()
 		local value = getter()
 		UIDropDownMenu_SetSelectedValue(dropDown, value)
-		UIDropDownMenu_SetText(dropDown, findValueLabel(values, value))
+		_G.UIDropDownMenu_SetText(dropDown, findValueLabel(values, value))
 	end)
 	return dropDown
 end
@@ -472,7 +487,15 @@ function Options:BuildRootPanel()
 		KCF.modules.QuickLists:ToggleWindow(true)
 	end, -236)
 	addText(panel, "The profession window picks the next item for you. Each cast still needs one click. Use /kcf lists for the quick lists.", 16, -278, 540)
-	setPanelContentHeight(panel, 350)
+	createDropDown(panel, "SkinMode", "Interface skin", SKIN_MODE_VALUES, function()
+		return KCF.db.ui.skinMode
+	end, function(value)
+		if KCF.db.ui.skinMode == value then return end
+		KCF.db.ui.skinMode = value
+		StaticPopup_Show(RELOAD_SKIN_DIALOG)
+	end, 8, -334, 350)
+	addText(panel, "Automatic uses ElvUI when ElvUI and AddOnSkins are available; otherwise it uses Vanilla. Reload or restart after changing this setting.", 16, -398, 540)
+	setPanelContentHeight(panel, 470)
 	self.rootPanel = panel
 	self.panels[#self.panels + 1] = panel
 end
